@@ -39,6 +39,7 @@ jobs:
   test-create-image-bundle: # make sure the action works on a clean machine without building
     needs: [ build ]
     strategy:
+      fail-fast: false
       matrix:
         os:
           - ubuntu-latest
