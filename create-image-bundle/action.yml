@@ -1,0 +1,25 @@
+# Copyright 2022 D2iQ, Inc. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: 'create-image-bundle'
+description: 'Creates an image-bundle using the mindthegap'
+inputs:
+  github-token:
+    description: "the token is used for fetching the latest version of the mesosphere/mindthegap release"
+    required: false
+    default: ${{ github.token }}
+  version:
+    description: 'Version of mindthegap to use'
+    required: false
+    default: 'latest'
+  images-file:
+    description: 'File containing list of images to create bundle from, either as YAML configuration or a simple list of images'
+    required: false
+    default: "images.txt"
+  output-file:
+    description: 'Output file to write image bundle to (default "images.tar")'
+    required: false
+    default: "images.tar"
+runs:
+  using: 'node16'
+  main: '../dist/create-image-bundle/index.js'
