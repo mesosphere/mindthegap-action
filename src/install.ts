@@ -33,26 +33,35 @@ const getAssetURL = (versionConfig: VersionConfig): string => {
   return `${downloadURL}/${versionConfig.TargetVersion}/mindthegap_${versionConfig.TargetVersion}_${platform}_${arch}.${ext}`
 }
 
-// The installLint returns path to installed binary of mindthegap.
+// The installMindthegap returns path to installed binary of mindthegap.
 export async function installMindthegap(versionConfig: VersionConfig): Promise<string> {
   core.info(`Installing mindthegap ${versionConfig.TargetVersion}...`)
   const startedAt = Date.now()
-  const assetURL = getAssetURL(versionConfig)
-  core.info(`Downloading ${assetURL} ...`)
-  const archivePath = await tc.downloadTool(assetURL)
-  let extractedDir = ""
-  if (assetURL.endsWith("zip")) {
-    extractedDir = await tc.extractZip(archivePath, process.env.HOME)
-  } else {
-    // We want to always overwrite files if the local cache already has them
-    const args = ["xz"]
-    if (process.platform.toString() != "darwin") {
-      args.push("--overwrite")
-    }
-    extractedDir = await tc.extractTar(archivePath, process.env.HOME, args)
-  }
 
-  const mindthegapPath = path.join(extractedDir, `mindthegap`)
-  core.info(`Installed mindthegap into ${mindthegapPath} in ${Date.now() - startedAt}ms`)
-  return mindthegapPath
+  const mindthegapFileName = `mindthegap${os.platform() == `win32` ? `.exe` : ``}`
+
+  let mindthegapDir = tc.find(`mindthegap`, versionConfig.TargetVersion)
+  if (!mindthegapDir) {
+    const assetURL = getAssetURL(versionConfig)
+    core.info(`Downloading ${assetURL} ...`)
+    const archivePath = await tc.downloadTool(assetURL)
+    let extractedDir = ""
+    if (assetURL.endsWith("zip")) {
+      extractedDir = await tc.extractZip(archivePath, process.env.HOME)
+    } else {
+      // We want to always overwrite files if the local cache already has them
+      const args = ["xz"]
+      if (process.platform.toString() != "darwin") {
+        args.push("--overwrite")
+      }
+      extractedDir = await tc.extractTar(archivePath, process.env.HOME, args)
+    }
+
+    const mindthegapFile = path.join(extractedDir, mindthegapFileName)
+    mindthegapDir = await tc.cacheFile(mindthegapFile, mindthegapFileName, `mindthegap`, versionConfig.TargetVersion)
+  }
+  core.addPath(mindthegapDir)
+
+  core.info(`Installed mindthegap into ${mindthegapDir} in ${Date.now() - startedAt}ms`)
+  return path.join(mindthegapDir, mindthegapFileName)
 }

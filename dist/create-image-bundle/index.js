@@ -13535,29 +13535,35 @@ const getAssetURL = (versionConfig) => {
     }
     return `${downloadURL}/${versionConfig.TargetVersion}/mindthegap_${versionConfig.TargetVersion}_${platform}_${arch}.${ext}`;
 };
-// The installLint returns path to installed binary of mindthegap.
+// The installMindthegap returns path to installed binary of mindthegap.
 function installMindthegap(versionConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         core.info(`Installing mindthegap ${versionConfig.TargetVersion}...`);
         const startedAt = Date.now();
-        const assetURL = getAssetURL(versionConfig);
-        core.info(`Downloading ${assetURL} ...`);
-        const archivePath = yield tc.downloadTool(assetURL);
-        let extractedDir = "";
-        if (assetURL.endsWith("zip")) {
-            extractedDir = yield tc.extractZip(archivePath, process.env.HOME);
-        }
-        else {
-            // We want to always overwrite files if the local cache already has them
-            const args = ["xz"];
-            if (process.platform.toString() != "darwin") {
-                args.push("--overwrite");
+        const mindthegapFileName = `mindthegap${os_1.default.platform() == `win32` ? `.exe` : ``}`;
+        let mindthegapDir = tc.find(`mindthegap`, versionConfig.TargetVersion);
+        if (!mindthegapDir) {
+            const assetURL = getAssetURL(versionConfig);
+            core.info(`Downloading ${assetURL} ...`);
+            const archivePath = yield tc.downloadTool(assetURL);
+            let extractedDir = "";
+            if (assetURL.endsWith("zip")) {
+                extractedDir = yield tc.extractZip(archivePath, process.env.HOME);
             }
-            extractedDir = yield tc.extractTar(archivePath, process.env.HOME, args);
+            else {
+                // We want to always overwrite files if the local cache already has them
+                const args = ["xz"];
+                if (process.platform.toString() != "darwin") {
+                    args.push("--overwrite");
+                }
+                extractedDir = yield tc.extractTar(archivePath, process.env.HOME, args);
+            }
+            const mindthegapFile = path_1.default.join(extractedDir, mindthegapFileName);
+            mindthegapDir = yield tc.cacheFile(mindthegapFile, mindthegapFileName, `mindthegap`, versionConfig.TargetVersion);
         }
-        const mindthegapPath = path_1.default.join(extractedDir, `mindthegap`);
-        core.info(`Installed mindthegap into ${mindthegapPath} in ${Date.now() - startedAt}ms`);
-        return mindthegapPath;
+        core.addPath(mindthegapDir);
+        core.info(`Installed mindthegap into ${mindthegapDir} in ${Date.now() - startedAt}ms`);
+        return path_1.default.join(mindthegapDir, mindthegapFileName);
     });
 }
 exports.installMindthegap = installMindthegap;
