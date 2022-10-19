@@ -61,3 +61,8 @@ jobs:
           version: ${{ matrix.version }}
           images-file: test/create-image-bundle-images.txt
           output-file: test/create-image-bundle-images.tar
+      - uses: ./create-image-bundle/
+        with:
+          version: ${{ matrix.version }}
+          images-file: test/create-image-bundle-images.txt
+          output-file: test/create-image-bundle-images-2.tar
