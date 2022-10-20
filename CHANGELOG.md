@@ -2,6 +2,14 @@
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
 
+
+
+**Full Changelog**: https://github.com/mesosphere/mindthegap-action/compare/v1.1.0...v1.1.1
+
+## Changelog
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
 ## What's Changed
 ### Other Changes
 * feat: Add downloaded binary to tool cache by @jimmidyson in https://github.com/mesosphere/mindthegap-action/pull/1
