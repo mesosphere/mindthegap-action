@@ -36,7 +36,7 @@ jobs:
             git push
           fi
 
-  test-create-image-bundle: # make sure the action works on a clean machine without building
+  test-create-image-bundle:
     needs: [ build ]
     strategy:
       fail-fast: false
@@ -69,3 +69,38 @@ jobs:
           version: ${{ matrix.version }}
           images-file: test/create-image-bundle-images.txt
           output-file: test/create-image-bundle-images-2.tar
+
+  test-create-and-push-image-bundle:
+    needs: [ build ]
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - ""
+          - "latest"
+          - "v1.2.4"
+          - "v1.3.0"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./create-image-bundle/
+        with:
+          version: ${{ matrix.version }}
+          images-file: test/create-image-bundle-images.txt
+          output-file: test/create-image-bundle-images.tar
+      - name: Start Docker registry
+        id: start_docker_registry
+        run: |
+          echo registry_container_id=$(docker run -d -p 5000:5000 registry:2) >>$GITHUB_OUTPUT
+      - uses: ./push-image-bundle/
+        with:
+          version: ${{ matrix.version }}
+          image-bundle: test/create-image-bundle-images.tar
+          to-registry: localhost:5000
+          to-registry-insecure-skip-tls-verify: true
+      - name: Stop Docker registry
+        run: |
+          docker container rm -fv ${{ steps.start_docker_registry.outputs.registry_container_id }}
