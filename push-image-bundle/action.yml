@@ -1,0 +1,35 @@
+# Copyright 2022 D2iQ, Inc. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+name: 'push-image-bundle'
+description: 'Pushes an image bundle using the mindthegap'
+inputs:
+  github-token:
+    description: "the token is used for fetching the latest version of the mesosphere/mindthegap release"
+    required: false
+    default: ${{ github.token }}
+  version:
+    description: 'Version of mindthegap to use'
+    required: false
+    default: 'latest'
+  image-bundle:
+    description: 'Tarball containing list of images to push. Can also be a glob pattern.'
+    required: true
+  to-registry:
+    description: 'Registry to push images to'
+    required: true
+  to-registry-ca-cert-file:
+    description: 'CA certificate file used to verify TLS verification of registry to push images to'
+    required: false
+  to-registry-insecure-skip-tls-verify:
+    description: 'Skip TLS verification of registry to push images to (also use for non-TLS http registries)'
+    required: false
+  to-registry-username:
+    description: 'Username to use to log in to destination registry'
+    required: false
+  to-registry-password:
+    description: 'Password to use to log in to destination registry'
+    required: false
+runs:
+  using: 'node16'
+  main: '../dist/push-image-bundle/index.js'

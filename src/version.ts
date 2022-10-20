@@ -100,7 +100,7 @@ export async function findMindthegapVersion(): Promise<VersionConfig> {
 }
 
 async function getLatestReleaseTag(): Promise<RestEndpointMethodTypes["repos"]["getLatestRelease"]["response"]> {
-  const token = core.getInput("github-token")
+  const token = core.getInput("github-token", { required: true })
   const octokit = github.getOctokit(token)
 
   return octokit.rest.repos.getLatestRelease({ owner: "mesosphere", repo: "mindthegap" })

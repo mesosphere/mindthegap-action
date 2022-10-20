@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 name: 'create-image-bundle'
-description: 'Creates an image-bundle using the mindthegap'
+description: 'Creates an image bundle using the mindthegap'
 inputs:
   github-token:
     description: "the token is used for fetching the latest version of the mesosphere/mindthegap release"
