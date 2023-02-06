@@ -5,7 +5,7 @@
   "description": "mindthegap github action",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc --build && find src -name '*-action.ts' -exec sh -c 'ncc build -o dist/$(basename -s -action.ts {}) {}' \\;",
+    "build": "tsc --build && find src -name '*-action.ts' -exec sh -c 'ncc build -o dist/$(basename --suffix=-action.ts {}) {}' \\;",
     "type-check": "tsc",
     "lint": "eslint --max-warnings 1 **/*.ts --cache",
     "lint-fix": "eslint **/*.ts --cache --fix",
@@ -34,12 +34,12 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
-    "@vercel/ncc": "^0.34.0",
+    "@vercel/ncc": "^0.36.1",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4"
   }
