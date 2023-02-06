@@ -20,6 +20,10 @@ inputs:
     description: 'Output file to write image bundle to (default "images.tar")'
     required: false
     default: "images.tar"
+  platforms:
+    description: 'platforms to download images (required format: <os>/<arch>[/<variant>])'
+    required: false
+    default: "linux/amd64"
 runs:
   using: 'node16'
   main: '../dist/create-image-bundle/index.js'

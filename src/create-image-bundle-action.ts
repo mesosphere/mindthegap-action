@@ -13,6 +13,8 @@ export async function run(): Promise<void> {
     core.getInput("images-file", { required: true }),
     "--output-file",
     core.getInput("output-file", { required: true }),
+    "--platform",
+    core.getInput("platforms", { required: true }),
   ])
 }
 
