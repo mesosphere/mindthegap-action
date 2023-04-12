@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.1 (2023-04-12)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Other Changes
+* build(deps): Bump xml2js, @azure/ms-rest-js and @azure/storage-blob by @dependabot in https://github.com/mesosphere/mindthegap-action/pull/7
+
+
+**Full Changelog**: https://github.com/mesosphere/mindthegap-action/compare/v1.2.0...v1.2.1
+
+## Changelog
+
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
 
 ## What's Changed
