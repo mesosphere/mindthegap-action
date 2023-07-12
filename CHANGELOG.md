@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.2 (2023-07-12)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Other Changes
+* build(deps): Bump semver from 6.3.0 to 6.3.1 by @dependabot in https://github.com/mesosphere/mindthegap-action/pull/9
+
+
+**Full Changelog**: https://github.com/mesosphere/mindthegap-action/compare/v1.2.1...v1.2.2
+
 ## 1.2.1 (2023-04-12)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
