@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.3 (2023-07-20)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Other Changes
+* build(deps): Bump tough-cookie and @azure/ms-rest-js by @dependabot in https://github.com/mesosphere/mindthegap-action/pull/8
+* build(deps-dev): Bump word-wrap from 1.2.3 to 1.2.4 by @dependabot in https://github.com/mesosphere/mindthegap-action/pull/11
+
+
+**Full Changelog**: https://github.com/mesosphere/mindthegap-action/compare/v1.2.2...v1.2.3
+
 ## 1.2.2 (2023-07-12)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
