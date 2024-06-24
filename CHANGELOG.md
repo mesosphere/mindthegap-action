@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.4 (2024-06-24)
+
+<!-- Release notes generated using configuration in .github/release.yaml at main -->
+
+## What's Changed
+### Other Changes
+* build(deps-dev): Bump braces from 3.0.2 to 3.0.3 by @dependabot in https://github.com/mesosphere/mindthegap-action/pull/13
+
+
+**Full Changelog**: https://github.com/mesosphere/mindthegap-action/compare/v1.2.3...v1.2.4
+
 ## 1.2.3 (2023-07-20)
 
 <!-- Release notes generated using configuration in .github/release.yaml at main -->
